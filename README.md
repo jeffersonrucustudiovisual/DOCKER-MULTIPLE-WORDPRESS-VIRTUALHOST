@@ -18,6 +18,10 @@ Execute `docker-compose up -d` no diretório `nginx` para iniciar o NGINX Proxy 
 
 * Copie o diretório `wordpress_01` para cada site WordPress que você deseja hospedar. Eu criei uma cópia chamada `wordpress_02` como exemplo. Se você deseja hospedar apenas um site, você pode excluir `wordpress_02` e modificar `wordpress_01` ao seu gosto.
 
+* Dentro do wordpress_01 rode o comando `docker-compose up -d` para subir o docker do wordpress e isso vale para os outros wordpress
+
+* Para acessar o php-my-admin adicione a seu dominiom + ${PHPMYADMIN_PORT}
+
 
 
 ## Build and run containers. 
