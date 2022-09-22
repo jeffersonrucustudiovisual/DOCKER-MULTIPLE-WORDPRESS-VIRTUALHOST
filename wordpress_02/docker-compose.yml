@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+  db:
+    container_name: $DB_CONTAINER
+    platform: linux/x86_64
+    image: mysql:5.7
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+      MYSQL_DATABASE: $DB_NAME
+      MYSQL_USER: $DB_USER
+      MYSQL_PASSWORD: $DB_PASSWORD
+    # volumes:
+    #   - ./www/${VIRTUAL_HOST}/db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - db
+    environment:
+      - PMA_HOSTS=db
+      - VIRTUAL_HOST=pma.boilerplate.docker
+      - VIRTUAL_PORT=80
+    volumes:
+      - /sessions
+    ports:
+      - "${PHPMYADMIN_PORT}:${VIRTUAL_PORT}"
+      
+  wp:
+    container_name: $WP_CONTAINER
+    build: .
+    depends_on:
+      - db
+    volumes:
+      - ./www/config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
+      - ./www/${VIRTUAL_HOST}:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: $DB_CONTAINER
+      WORDPRESS_DB_NAME: $DB_NAME
+      WORDPRESS_DB_USER: $DB_USER
+      WORDPRESS_DB_PASSWORD: $DB_PASSWORD
+      WORDPRESS_TABLE_PREFIX: $WP_TABLE_PREFIX
+      VIRTUAL_HOST: $VIRTUAL_HOST
+      VIRTUAL_PORT: $VIRTUAL_PORT
+      LETSENCRYPT_HOST: $VIRTUAL_HOST
+      LETSENCRYPT_EMAIL: $LETSENCRYPT_EMAIL
+      LETSENCRYPT_TEST: 'true'
+
+  sage:
+    platform: linux/x86_64
+    image: pimlab/composer:2.0.0-alpha3-php7.4
+    volumes:
+      - ./www/${VIRTUAL_HOST}/wp-content/themes/:/app
+    command: composer create-project roots/sage sage
+    depends_on:
+      - wp
+
+networks:
+  default:
+    external:
+      name: nginx_proxy

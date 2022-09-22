@@ -1,0 +1,10 @@
+.env
+*.swp
+
+wordpress_01/.env
+wordpress_01/www/
+
+wordpress_02/.env
+wordpress_02/www
+
+.DS_Store
