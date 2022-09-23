@@ -43,3 +43,13 @@ No Linux e MacOS adicione esta linha `localhost my_domain_one.com` pelo terminal
   $ sudo nano /etc/hosts
 ```
 
+No Windows Abra o Bloco de Notas ou qualquer outro editor de texto de sua escolha no Menu Iniciar com privilégios de administrador.
+(Obs: Sem privilégios de administrador, não é possível salvar as alterações do arquivo hosts feitas no editor.)
+
+
+- Agora abra o arquivo o seguinte arquivo ```C:\Windows\System32\Drivers\etc\hosts```
+- Altere o arquivo com o endereço IP seguido por espaço e domínio/nome do host.
+- Salve o arquivo e feche o Editor de Texto.
+- Abra o prompt de comando no menu Iniciar e digite ```ping domain.tld```
+- domain.tld aqui é o domínio/nome do host para o qual você deseja configurar um host virtual.
+- A saída deve mostrar o IP que você adicionou em ' C:\Windows\System32\Drivers\etc\hosts'junto com o domínio/nome do host. Se não, então limpe o DNS. Siga o guia aqui e reinicie o sistema.
