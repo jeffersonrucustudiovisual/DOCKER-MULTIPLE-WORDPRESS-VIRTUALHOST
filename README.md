@@ -53,3 +53,7 @@ No Windows Abra o Bloco de Notas ou qualquer outro editor de texto de sua escolh
 - Abra o prompt de comando no menu Iniciar e digite ```ping domain.tld```
 - domain.tld aqui é o domínio/nome do host para o qual você deseja configurar um host virtual.
 - A saída deve mostrar o IP que você adicionou em ' C:\Windows\System32\Drivers\etc\hosts'junto com o domínio/nome do host. Se não, então limpe o DNS. Siga o guia aqui e reinicie o sistema.
+
+## Thema
+
+Faça um git clone dentro da pasta de temas para trabalhar com o projeto que esta atuando
