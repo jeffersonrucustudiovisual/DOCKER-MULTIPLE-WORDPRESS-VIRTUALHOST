@@ -3,17 +3,18 @@ version: '3'
 services:
   db:
     container_name: $DB_CONTAINER
-    platform: linux/x86_64
+    platform: ${PLATFORM}
     image: mysql:5.7
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: 1
       MYSQL_DATABASE: $DB_NAME
       MYSQL_USER: $DB_USER
       MYSQL_PASSWORD: $DB_PASSWORD
-    # volumes:
-    #   - ./www/${VIRTUAL_HOST}/db_data:/var/lib/mysql
+    volumes:
+      - ./www/${VIRTUAL_HOST}/db_data:/var/lib/mysql
 
   phpmyadmin:
+    platform: ${PLATFORM}
     image: phpmyadmin/phpmyadmin
     links:
       - db
@@ -47,7 +48,7 @@ services:
       LETSENCRYPT_TEST: 'true'
 
   sage:
-    platform: linux/x86_64
+    platform: ${PLATFORM}
     image: pimlab/composer:2.0.0-alpha3-php7.4
     volumes:
       - ./www/${VIRTUAL_HOST}/wp-content/themes/:/app
